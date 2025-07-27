@@ -1,4 +1,4 @@
-package com.myname.mymodid;
+package com.orirock.appliedwebterminal;
 
 public class ClientProxy extends CommonProxy {
 

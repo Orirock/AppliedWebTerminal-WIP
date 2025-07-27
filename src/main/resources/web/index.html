@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AE2 Web Control</title>
+    <style>
+        .item { margin: 5px; padding: 5px; border: 1px solid #ccc; }
+        button { margin-left: 10px; }
+    </style>
+</head>
+<body>
+<h1>AE2 Network Items</h1>
+<div id="items"></div>
+
+<script>
+    const username = "admin"; // 替换为方块设置的用户名
+    const password = "password"; // 替换为方块设置的密码
+    const port = 8080; // 替换为方块设置的端口
+
+    function fetchWithAuth(url, options = {}) {
+        const headers = new Headers(options.headers || {});
+        headers.set('Authorization', 'Basic ' + btoa(username + ":" + password));
+
+        return fetch(`http://localhost:${port}${url}`, {
+            ...options,
+            headers
+        });
+    }
+
+    function loadItems() {
+        fetchWithAuth('/api/items')
+            .then(response => response.json())
+            .then(items => {
+                const container = document.getElementById('items');
+                container.innerHTML = '';
+
+                items.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'item';
+                    div.innerHTML = `
+                        ${item}
+                        <button onclick="craftItem('${item}', 1)">Craft 1</button>
+                        <button onclick="craftItem('${item}', 64)">Craft 64</button>
+                    `;
+                    container.appendChild(div);
+                });
+            });
+    }
+
+    function craftItem(item, amount) {
+        fetchWithAuth(`/api/craft?item=${encodeURIComponent(item)}&amount=${amount}`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.success ? 'Crafting started' : 'Crafting failed');
+        });
+    }
+
+    // 初始加载
+    loadItems();
+</script>
+</body>
+</html>

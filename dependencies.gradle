@@ -34,5 +34,13 @@
  * For more details, see https://docs.gradle.org/8.0.1/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
 dependencies {
+
     runtimeOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.7.4-GTNH:dev")
+    implementation("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-485-GTNH:dev")
+    implementation("com.github.GTNewHorizons:GTNHLib:0.5.23:dev")
+
+    api("org.eclipse.jetty:jetty-server:9.2.26.v20180806")
+    api("org.eclipse.jetty:jetty-servlet:9.2.26.v20180806")
+    api("org.eclipse.jetty:jetty-websocket:8.2.0.v20160908")
+    api("javax.servlet:javax.servlet-api:3.1.0")
 }

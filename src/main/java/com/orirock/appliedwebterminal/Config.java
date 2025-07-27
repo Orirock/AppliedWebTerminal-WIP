@@ -1,4 +1,4 @@
-package com.myname.mymodid;
+package com.orirock.appliedwebterminal;
 
 import java.io.File;
 
